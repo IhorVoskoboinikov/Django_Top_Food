@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Main</title>
+</head>
+<body>
+<h1>Do your order:</h1>
+<form action="{% url 'order_is_accepted' %}" method="POST">
+    {% csrf_token %}
+    {{ order.as_p}}
+    <button type="submit">Send</button>
+</form>
+
+</body>
+</html>

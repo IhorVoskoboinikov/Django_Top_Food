@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+<body>
+  <h1>Your order is successful</h1>
+  <h2>Your order:</h2>
+<table border="1">
+        <tr>
+            <th>First_dish</th>
+            <th>Second_dish</th>
+            <th>Drinks</th>
+            <th>Other</th>
+        </tr>
+        <tr>
+            <th>{{ order_dict.first_dish }}</th>
+            <th>{{ order_dict.second_dish }}</th>
+            <th>{{ order_dict.drinks }}</th>
+            <th>{{ order_dict.other }}</th>
+        </tr>
+</table>
+<br>
+<br>
+<p><a href="/">Return to order menu</a></p>
+</body>
+</html>
