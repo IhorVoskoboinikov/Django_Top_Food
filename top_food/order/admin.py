@@ -4,11 +4,27 @@ from .models import Printer, Check
 
 
 class PrinterAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'api_key', 'check_type']
+
+    actions = ['mark_as_kitchen', 'mark_as_client', 'mark_as_all']
+
+    def mark_as_kitchen(self, request, queryset):
+        queryset.update(check_type='k')
+
+    def mark_as_client(self, request, queryset):
+        queryset.update(check_type='c')
+
+    def mark_as_all(self, request, queryset):
+        queryset.update(check_type='a')
+
+    mark_as_kitchen.shot_description = 'Change to status - Kitchen!'
+    mark_as_client.shot_description = 'Change to status - Client!'
+    mark_as_all.shot_description = 'Change to status - All!'
 
 
 class CheckAdmin(admin.ModelAdmin):
-    list_display = ['id', 'printer_id', 'status']
+    list_display = ['id', 'printer_id', 'type', 'status']
+    list_filter = ['printer_id', 'type', 'status']
 
     actions = ['mark_as_new', 'mark_as_rendered', 'mark_as_printed']
 
@@ -26,5 +42,5 @@ class CheckAdmin(admin.ModelAdmin):
     mark_as_printed.shot_description = 'Change to status - Printed!'
 
 
-admin.site.register(Printer)
+admin.site.register(Printer, PrinterAdmin)
 admin.site.register(Check, CheckAdmin)
