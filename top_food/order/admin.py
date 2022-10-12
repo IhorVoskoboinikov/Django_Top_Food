@@ -4,7 +4,7 @@ from .models import Printer, Check
 
 
 class PrinterAdmin(admin.ModelAdmin):
-    list_display = ['id', 'api_key', 'check_type']
+    list_display = ['id', 'name_printer', 'api_key', 'check_type', 'point_id']
 
     actions = ['mark_as_kitchen', 'mark_as_client', 'mark_as_all']
 

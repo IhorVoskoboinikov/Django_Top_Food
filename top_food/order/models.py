@@ -5,12 +5,12 @@ from django.db import models
 
 class Printer(models.Model):
     CHECK_TYPE_CHOICES = [
-        ('k', 'Kitchen'),
-        ('c', 'Client'),
+        ('Kitchen', 'Kitchen'),
+        ('Client', 'Client'),
     ]
     name_printer = models.CharField(max_length=200, verbose_name='Назва принтеру')
     api_key = models.CharField(max_length=200)
-    check_type = models.CharField(max_length=1, choices=CHECK_TYPE_CHOICES,
+    check_type = models.CharField(max_length=10, choices=CHECK_TYPE_CHOICES,
                                   verbose_name='тип чеку')
     point_id = models.IntegerField()
 

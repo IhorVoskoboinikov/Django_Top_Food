@@ -5,11 +5,11 @@
     <title>Order Main</title>
 </head>
 <body>
-<h1>Do your order:</h1>
+<h1>Зроби свое замовлення:</h1>
 <form action="{% url 'order_is_accepted' %}" method="POST">
     {% csrf_token %}
     {{ order.as_p}}
-    <button type="submit">Send</button>
+    <button type="submit">Заказати</button>
 </form>
 
 </body>
