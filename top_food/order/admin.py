@@ -6,7 +6,7 @@ from .models import Printer, Check
 class PrinterAdmin(admin.ModelAdmin):
     list_display = ['id', 'name_printer', 'api_key', 'check_type', 'point_id']
 
-    actions = ['mark_as_kitchen', 'mark_as_client', 'mark_as_all']
+    actions = ['mark_as_kitchen', 'mark_as_client']
 
     def mark_as_kitchen(self, request, queryset):
         queryset.update(check_type='k')
@@ -14,12 +14,8 @@ class PrinterAdmin(admin.ModelAdmin):
     def mark_as_client(self, request, queryset):
         queryset.update(check_type='c')
 
-    def mark_as_all(self, request, queryset):
-        queryset.update(check_type='a')
-
     mark_as_kitchen.shot_description = 'Change to status - Kitchen!'
     mark_as_client.shot_description = 'Change to status - Client!'
-    mark_as_all.shot_description = 'Change to status - All!'
 
 
 class CheckAdmin(admin.ModelAdmin):
@@ -29,13 +25,13 @@ class CheckAdmin(admin.ModelAdmin):
     actions = ['mark_as_new', 'mark_as_rendered', 'mark_as_printed']
 
     def mark_as_new(self, request, queryset):
-        queryset.update(status='n')
+        queryset.update(status='New')
 
     def mark_as_rendered(self, request, queryset):
-        queryset.update(status='r')
+        queryset.update(status='Rendered')
 
     def mark_as_printed(self, request, queryset):
-        queryset.update(status='p')
+        queryset.update(status='Printed')
 
     mark_as_new.shot_description = 'Change to status - New!'
     mark_as_rendered.shot_description = 'Change to status - Rendered!'

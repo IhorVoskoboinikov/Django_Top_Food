@@ -24,21 +24,22 @@ class Printer(models.Model):
 
 class Check(models.Model):
     STATUS_CHOICES = [
-        ('n', 'New'),
-        ('r', 'Rendered'),
-        ('p', 'Printed'),
+        ('New', 'New'),
+        ('Rendered', 'Rendered'),
+        ('Printed', 'Printed'),
     ]
     CHECK_TYPE_CHOICES = [
-        ('k', 'Kitchen'),
-        ('c', 'Client'),
+        ('Kitchen', 'Kitchen'),
+        ('Client', 'Client'),
     ]
     printer_id = models.ForeignKey(Printer, on_delete=models.CASCADE)
     api_key = models.CharField(max_length=50)
-    type = models.CharField(max_length=1, choices=CHECK_TYPE_CHOICES, verbose_name='тип принтеру')
+    type = models.CharField(max_length=10, choices=CHECK_TYPE_CHOICES, verbose_name='тип принтеру')
     order = models.JSONField(verbose_name='Заказ')
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='n',
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Rendered',
                               verbose_name='статус')
     pdf_file = models.FileField()
+    order_number = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = 'Чек'
