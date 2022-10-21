@@ -36,7 +36,7 @@ class Check(models.Model):
     api_key = models.CharField(max_length=50)
     type = models.CharField(max_length=10, choices=CHECK_TYPE_CHOICES, verbose_name='тип принтеру')
     order = models.JSONField(verbose_name='Заказ')
-    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Rendered',
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='New',
                               verbose_name='статус')
     pdf_file = models.FileField()
     order_number = models.IntegerField(default=0)

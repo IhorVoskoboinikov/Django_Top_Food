@@ -13,6 +13,7 @@ import time
 
 
 def create_pdf_check_async(order, order_number, order_point):
+    time.sleep(15)
     printers = Printer.objects.filter(point_id=order_point)
     for printer in printers:
         pdf = FPDF(format='A5')
@@ -24,8 +25,12 @@ def create_pdf_check_async(order, order_number, order_point):
         for key, value in order.items():
             pdf.cell(200, 10, txt=f"{key} - {value}", ln=1, align='L')
         pdf.output(f'media/pdf/{order_number}_{printer.check_type}.pdf')
-        print("---------The file is ready--------------")
-        time.sleep(3)
+    print("---------The file is ready--------------")
+    checks = Check.objects.filter(order_number=order_number)
+    for check in checks:
+        check.status = 'Rendered'
+        check.save()
+    print("========Checks is Rendered=========")
 
 
 def save_check_in_db_async(order_point, json_data, order_number):
@@ -41,7 +46,6 @@ def save_check_in_db_async(order_point, json_data, order_number):
         )
         check_to_save.save()
         print("Save data in db")
-        time.sleep(2)
 
 
 def get_order_number():
@@ -74,7 +78,6 @@ async def order_is_accepted_async(request):
     order_point = int(request.POST['order_point'])
     json_data = json.dumps(order_dict)
     order_number = get_order_number()
-# asynco var#1
     loop = asyncio.get_event_loop()
     async_function1 = sync_to_async(save_check_in_db_async, thread_sensitive=False)
     async_function2 = sync_to_async(create_pdf_check_async, thread_sensitive=False)
@@ -86,19 +89,6 @@ async def order_is_accepted_async(request):
         order=order_dict,
         order_number=order_number,
         order_point=order_point))
-# asynco var#2 (decoration @sync_to_async to funk)
-    # task1 = asyncio.ensure_future(save_check_in_db_async(
-    #     order_point=order_point,
-    #     json_data=json_data,
-    #     order_number=order_number)
-    # )
-    # task2 = asyncio.ensure_future(create_pdf_check_async(
-    #     order=order_dict,
-    #     order_number=order_number,
-    #     order_point=order_point)
-    # )
-
-    # await asyncio.wait([task1, task2])
     total_time = (time.time() - start)
     print(total_time)
     return render(request, 'form_done.html', {'order_dict': order_dict})
