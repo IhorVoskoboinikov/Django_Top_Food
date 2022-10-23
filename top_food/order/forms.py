@@ -10,9 +10,12 @@ def _get_available_point():
     if printers:
         for printer in printers:
             choose_printer_point.add((printer.point_id, printer.name_printer))
+
         return choose_printer_point
+
     else:
         choose_printer_point.add((1, 'Не мае доступних для замовлення'))
+
         return choose_printer_point
 
 

@@ -1,13 +1,13 @@
 from django.db import models
 
 
-# Create your models here.
-
 class Printer(models.Model):
+
     CHECK_TYPE_CHOICES = [
         ('Kitchen', 'Kitchen'),
         ('Client', 'Client'),
     ]
+
     name_printer = models.CharField(max_length=200, verbose_name='Назва принтеру')
     api_key = models.CharField(max_length=200)
     check_type = models.CharField(max_length=10, choices=CHECK_TYPE_CHOICES,
@@ -23,15 +23,18 @@ class Printer(models.Model):
 
 
 class Check(models.Model):
+
     STATUS_CHOICES = [
         ('New', 'New'),
         ('Rendered', 'Rendered'),
         ('Printed', 'Printed'),
     ]
+
     CHECK_TYPE_CHOICES = [
         ('Kitchen', 'Kitchen'),
         ('Client', 'Client'),
     ]
+
     printer_id = models.ForeignKey(Printer, on_delete=models.CASCADE)
     api_key = models.CharField(max_length=50)
     type = models.CharField(max_length=10, choices=CHECK_TYPE_CHOICES, verbose_name='тип принтеру')
