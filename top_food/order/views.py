@@ -1,11 +1,8 @@
 import asyncio
 import json
-import os
-import re
 import time
 
 from asgiref.sync import sync_to_async
-from asgiref.sync import async_to_sync
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
