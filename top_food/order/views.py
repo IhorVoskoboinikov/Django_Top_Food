@@ -14,7 +14,7 @@ from .forms import OrderForm
 
 
 def create_pdf_check_async(order, order_number, order_point):
-    time.sleep(10)
+    time.sleep(15)
 
     pdf = FPDF(format='A5')
     pdf.add_page()
@@ -60,9 +60,10 @@ def save_check_in_db_async(order_point, json_data, order_number):
 @sync_to_async
 def get_order_number():
 
-    order_number = Check.objects.aggregate(Max('order_number'))['order_number__max'] + 1
-
-    return order_number
+    order_number = Check.objects.aggregate(Max('order_number'))['order_number__max']
+    if order_number:
+        return order_number + 1
+    return 1
 
 
 def order_menu(request):
