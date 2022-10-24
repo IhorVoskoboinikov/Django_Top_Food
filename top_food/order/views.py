@@ -14,7 +14,7 @@ from .forms import OrderForm
 
 
 def create_pdf_check_async(order, order_number, order_point):
-    time.sleep(15)
+    time.sleep(20)
 
     pdf = FPDF(format='A5')
     pdf.add_page()
@@ -58,7 +58,7 @@ def save_check_in_db_async(order_point, json_data, order_number):
 
 
 @sync_to_async
-def get_order_number():
+def get_order_number_async():
 
     order_number = Check.objects.aggregate(Max('order_number'))['order_number__max']
     if order_number:
@@ -84,7 +84,7 @@ async def order_is_accepted_async(request):
     order_point = int(request.POST['order_point'])
     json_data = json.dumps(order_dict)
 
-    order_number = asyncio.create_task(get_order_number())
+    order_number = asyncio.create_task(get_order_number_async())
     await order_number
 
     loop = asyncio.get_event_loop()

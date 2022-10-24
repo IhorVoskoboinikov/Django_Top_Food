@@ -4,13 +4,13 @@ import requests
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-id', '--id', type=int, help='Printer operation')
+parser.add_argument('--printer_id', type=int)
 args = parser.parse_args()
 
-print(f'Printer {args.id} is working!')
+print(f'Printer {args.printer_id} is working!')
 
 while True:
-    response = requests.get(f'http://127.0.0.1:8000/get_files_for_printer/{args.id}')
+    response = requests.get(f'http://127.0.0.1:8000/get_files_for_printer/{args.printer_id}')
     time.sleep(5)
 
     print(response)
