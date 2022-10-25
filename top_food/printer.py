@@ -11,7 +11,7 @@ print(f'Printer {args.printer_id} is working!')
 
 while True:
     response = requests.get(f'http://127.0.0.1:8000/get_files_for_printer/{args.printer_id}')
-    time.sleep(5)
+    time.sleep(2)
 
     print(response)
 

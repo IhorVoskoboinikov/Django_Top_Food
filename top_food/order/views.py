@@ -14,7 +14,7 @@ from .forms import OrderForm
 
 
 def create_pdf_check_async(order, order_number, order_point):
-    time.sleep(20)
+    time.sleep(30)
 
     pdf = FPDF(format='A5')
     pdf.add_page()
